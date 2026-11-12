@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CV Juan Bustos</title>
+<style>
+  @font-face { font-family: 'Overpass'; font-weight: 400; src: url('../node_modules/@fontsource/overpass/files/overpass-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Overpass'; font-weight: 600; src: url('../node_modules/@fontsource/overpass/files/overpass-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Overpass'; font-weight: 800; src: url('../node_modules/@fontsource/overpass/files/overpass-latin-800-normal.woff2') format('woff2'); }
+  @page { size: A4; margin: 15mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 400 9.6pt/1.45 'Overpass', sans-serif; color: #15181c; }
+  a { color: inherit; text-decoration: none; }
+  header { border-bottom: 3px solid #15181c; padding-bottom: 8px; margin-bottom: 10px; }
+  h1 { font-size: 22pt; font-weight: 800; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  .role { font-size: 11pt; font-weight: 600; margin-top: 3px; }
+  .contact { font-size: 8.8pt; color: #4a5058; margin-top: 4px; }
+  h2 { font-size: 10.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin: 13px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #c9cdca; }
+  .job { margin-bottom: 9px; break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  .job-title { font-weight: 800; font-size: 10pt; }
+  .job-when { font-size: 8.8pt; color: #4a5058; white-space: nowrap; }
+  .job-sub { font-size: 8.8pt; color: #4a5058; margin-top: 1px; }
+  ul { margin: 4px 0 0; padding-left: 14px; }
+  li { margin: 1.5px 0; }
+  .stack { font-size: 8.6pt; color: #4a5058; margin-top: 3px; }
+  .stack b { color: #15181c; font-weight: 600; }
+  .skills { display: grid; grid-template-columns: 105px 1fr; gap: 2px 10px; }
+  .skills dt { font-weight: 600; }
+  .skills dd { margin: 0; }
+  p { margin: 0; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Juan Bustos</h1>
+  <div class="role">Fullstack Developer · Node.js · React · TypeScript · Java / Spring Boot</div>
+  <div class="contact">Córdoba, Argentina (GMT-3) · +54 9 3537 604893 · jemiliobus@gmail.com · linkedin.com/in/juan-bustos7 · github.com/Juanbe7 · juanbe7.github.io</div>
+</header>
+
+<h2>Perfil profesional</h2>
+<p>Desarrollador fullstack con foco en backend y en llevar productos desde la idea hasta producción. Diseño, desarrollo y opero dos productos propios con clientes reales: <b>Keltron</b>, un sistema de gestión y POS que procesó más de 21.000 órdenes en 5 locales, y <b>Cuotum</b>, una plataforma SaaS de cobranzas con Mercado Pago y Talo integrados. En paralelo trabajo en un ERP empresarial, resolviendo de punta a punta requerimientos sobre todos sus módulos.</p>
+
+<h2>Experiencia profesional</h2>
+<div class="job">
+  <div class="job-head"><span class="job-title">Full Stack Developer · Brinco Software</span><span class="job-when">Abril 2025 – Actualidad · Remoto</span></div>
+  <ul>
+    <li>Desarrollo desde cero de un CRM configurable para ventas, servicio técnico e industria, basado en tipos de CRM y campos personalizables que permiten adaptar cada uno sin cambios de código.</li>
+    <li>Resolución autónoma de tickets de punta a punta sobre un ERP con base legacy en PHP: a partir de requerimientos escritos en lenguaje de negocio, ubico el código, implemento la solución y la entrego.</li>
+    <li>Bugs y funcionalidades en todos los módulos: ventas, stock, compras, cuentas corrientes, caja y contabilidad, incluyendo ajustes en facturación para el manejo de descuentos.</li>
+    <li>Participación en la migración progresiva a backend PHP con frontend en React y TypeScript. Consultas SQL complejas sobre PostgreSQL. Kanban.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP, PostgreSQL, React, TypeScript, JavaScript, Git</div>
+</div>
+
+<h2>Productos propios</h2>
+<div class="job">
+  <div class="job-head"><span class="job-title"><span class="dot" style="background:#0077b6"></span>Fundador y desarrollador · Keltron, sistema de gestión y POS</span><span class="job-when">Agosto 2025 – Actualidad</span></div>
+  <div class="job-sub">keltron.app · En producción en 5 locales de 4 clientes</div>
+  <ul>
+    <li>Más de 21.000 órdenes procesadas en gastronomía, retail y modo kiosco.</li>
+    <li>Configurable por tipo de negocio (restaurante, retail, kiosco, servicios) con 18 módulos que se activan o desactivan sin perder datos.</li>
+    <li>Arquitectura de servicios: núcleo en Node.js, Express y Prisma sobre PostgreSQL, frontend en Next.js y React, y servicios independientes para facturación, PDF (Puppeteer) e impresión de tickets ESC/POS.</li>
+    <li>Microservicio en Java y Spring Boot para facturación electrónica AFIP / ARCA (WSAA, WSFEv1, certificados), en producción.</li>
+    <li>Sincronización en tiempo real entre POS, cocina y caja con WebSockets. App online de pedidos para gastronomía (Next.js).</li>
+    <li>Asistente de soporte con IA (Gemini con tool use) que consulta el backend real. Gestión central de licencias y despliegue remoto de actualizaciones.</li>
+    <li>Infraestructura propia en Linux con Docker y Caddy: despliegues, dominios, bases de datos y backups automatizados.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> TypeScript, Node.js, Express, Prisma, PostgreSQL, Next.js, React, WebSockets, Java 21, Spring Boot, Docker, Caddy</div>
+</div>
+<div class="job">
+  <div class="job-head"><span class="job-title"><span class="dot" style="background:#6b2d8e"></span>Fundador y desarrollador · Cuotum, plataforma SaaS de cobranzas</span><span class="job-when">2026 – Actualidad</span></div>
+  <div class="job-sub">cuotum.app · En producción con 2 organizaciones y 54 socios</div>
+  <ul>
+    <li>SaaS multi-tenant en Java y Spring Boot con monolito modular; aislamiento de datos con Row-Level Security en PostgreSQL.</li>
+    <li>Split payments con Mercado Pago y Talo para repartir cada pago y liquidar la comisión de la plataforma.</li>
+    <li>Spring Security con JWT, bloqueo por intentos fallidos, captcha y auditoría de webhooks de pago.</li>
+    <li>Recordatorios automáticos de vencimiento por WhatsApp y email con Spring Scheduler.</li>
+    <li>103 clases de tests unitarios y de integración (JUnit, Mockito, Spring Boot Test).</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Java 21, Spring Boot, Spring Security, JPA, Flyway, PostgreSQL, React, TypeScript, Docker</div>
+</div>
+<div class="job">
+  <div class="job-head"><span class="job-title"><span class="dot" style="background:#f2c200"></span>Creador · barras-ar, API abierta de productos por código de barras</span><span class="job-when">2026 · Código público</span></div>
+  <div class="job-sub">barras-ar-app.vercel.app · github.com/Juanbe7/barras-ar</div>
+  <ul>
+    <li>API y app que devuelven el código de barras y el precio de referencia (súper y mayorista) de productos argentinos, por código o por texto.</li>
+    <li>Ingesta diaria con GitHub Actions a partir de los datos públicos de Precios Claros (SEPA), sobre Supabase / PostgreSQL y Vercel.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> TypeScript, Node.js, PostgreSQL, Supabase, Vite, GitHub Actions</div>
+</div>
+
+<h2>Experiencia independiente</h2>
+<div class="job">
+  <div class="job-head"><span class="job-title">Freelance Developer</span><span class="job-when">Junio 2021 – Actualidad</span></div>
+  <ul>
+    <li>Aplicaciones, automatizaciones y herramientas a medida, desde el diseño de la solución hasta la entrega, para clientes nacionales e internacionales.</li>
+    <li>Sistemas de scraping y monitoreo de precios con alertas automáticas en Discord. Bots e integraciones para Discord y Slack.</li>
+    <li>Automatización de flujos de compra en e-commerce mediante integración directa con sus APIs, completando el proceso en unos 2 segundos.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Python, C#, .NET, Node.js, Selenium, Puppeteer, BeautifulSoup</div>
+</div>
+
+<h2>Habilidades técnicas</h2>
+<dl class="skills">
+  <dt>Backend</dt><dd>Node.js, Express, TypeScript, Java, Spring Boot, Spring Security, PHP</dd>
+  <dt>Frontend</dt><dd>React, Next.js, TypeScript, HTML, CSS</dd>
+  <dt>Bases de datos</dt><dd>PostgreSQL (RLS, consultas complejas), MySQL, Prisma, JPA / Hibernate, Flyway</dd>
+  <dt>Integraciones</dt><dd>APIs REST, WebSockets, Mercado Pago, Talo, AFIP / ARCA</dd>
+  <dt>Testing</dt><dd>JUnit, Mockito, Spring Boot Test, Jest</dd>
+  <dt>Infraestructura</dt><dd>Linux, Docker, Caddy, GitHub Actions, Git</dd>
+</dl>
+
+<h2>Formación e idiomas</h2>
+<ul>
+  <li>Tecnicatura Superior en Programación · UTN Facultad Regional Villa María · Graduado 2024</li>
+  <li>Ingeniería Electrónica · UTN FRVM · Estudios incompletos, 2019–2022</li>
+  <li>Desarrollo de Software en Java · Oracle Next Education (Alura) · 2022–2023 · Desarrollador Full-Stack · Argentina Programa 2.0 · 2022</li>
+  <li>Español nativo · Inglés intermedio (A2–B1), lectura técnica fluida</li>
+</ul>
+</body>
+</html>

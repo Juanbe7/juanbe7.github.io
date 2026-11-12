@@ -1,0 +1,218 @@
+---
+import Base from '../../layouts/Base.astro';
+import NetworkMap from '../../components/NetworkMap.astro';
+import type { Line } from '../../components/NetworkMap.astro';
+
+const lines: Line[] = [
+  {
+    id: 'k', letter: 'K', name: 'Keltron', sub: 'Management and point of sale', href: '/en/keltron/',
+    stations: [
+      { name: 'Point of sale' }, { name: 'Kitchen' }, { name: 'Cash register' },
+      { name: 'Kiosk', transfer: 'b' }, { name: 'Online app' }, { name: 'AFIP invoicing' },
+      { name: 'PDF and printing' }, { name: 'AI assistant' },
+    ],
+  },
+  {
+    id: 'c', letter: 'C', name: 'Cuotum', sub: 'Recurring payments', href: '/en/cuotum/',
+    stations: [
+      { name: 'Organizations' }, { name: 'Members' }, { name: 'Payment link' },
+      { name: 'Mercado Pago' }, { name: 'Talo' }, { name: 'Reminders' },
+    ],
+  },
+  {
+    id: 'b', letter: 'B', name: 'barras-ar', sub: 'Open barcode API', href: '/en/barras/',
+    stations: [{ name: 'Kiosk', transfer: 'k' }, { name: 'Daily SEPA import' }, { name: 'Public API' }],
+  },
+];
+
+const timeline = [
+  { when: '2021 – 2024', what: 'Freelance: automation and reverse engineering',
+    body: 'Scrapers, price monitoring with Discord alerts and checkout automation for e-commerce sites. All researched by hand, before AI tools: reading a site\'s network traffic, finding the internal API it uses and replicating it. A full checkout flow ran in about 2 seconds.' },
+  { when: '2024', what: 'Programming degree (Técnico Superior), UTN Villa María', body: '' },
+  { when: 'Apr 2025 – now', what: 'Full Stack Developer at Brinco Software',
+    body: 'ERP on PHP and PostgreSQL, moving to React and TypeScript. I built a configurable CRM from scratch for sales, technical service and industry, with custom types and fields. I handle tickets end to end in sales, stock, purchases, customer accounts, cash and accounting.' },
+  { when: 'Aug 2025 – now', what: 'Keltron, my own product', body: 'First client was a restaurant; today 5 locations across restaurants, retail and kiosks.' },
+  { when: '2026 – now', what: 'Cuotum, my own product', body: 'SaaS for recurring payments, in production with its first organizations.' },
+];
+---
+<Base
+  title="Juan Bustos · Fullstack developer"
+  description="Fullstack developer in Córdoba, Argentina. I build and run Keltron, a POS used in 5 locations, and Cuotum, a payments SaaS."
+  lang="en"
+  altHref="/"
+>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <h1>Juan Bustos</h1>
+      <p class="lede">Fullstack developer. I design, build and run software that real businesses use every day.</p>
+      <ul class="plates" role="list">
+        <li class="plate"><span class="bullet" data-line="k" aria-hidden="true">K</span>More than 21,000 orders processed in 5 locations</li>
+        <li class="plate"><span class="bullet" data-line="c" aria-hidden="true">C</span>2 products of my own in production with clients</li>
+        <li class="plate stack">Node.js · React · TypeScript · Java · Spring Boot · PostgreSQL</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary" href="/cv/CV-Juan-Bustos.pdf" download>Download CV</a>
+        <a class="btn btn-ghost" href="mailto:jemiliobus@gmail.com">Email me</a>
+      </div>
+      <p class="where muted">Córdoba, Argentina · GMT-3 · Remote or on-site</p>
+    </div>
+    <div class="hero-map">
+      <NetworkMap lines={lines} label="Map of the products I built, drawn as a subway network" transferLabel="Transfer" />
+      <p class="map-note muted">Each line is a product; each station is a part I designed and built. Hover over a line to follow it.</p>
+    </div>
+  </section>
+
+  <section id="lineas" class="lines wrap" aria-labelledby="lineas-t">
+    <h2 id="lineas-t">What I built, in service today</h2>
+
+    <article class="line" data-line="k">
+      <header class="line-head">
+        <span class="bullet big" data-line="k" aria-hidden="true">K</span>
+        <div>
+          <h3>Keltron</h3>
+          <p class="muted">Management and point-of-sale system · August 2025 – now · <a href="https://keltron.app">keltron.app</a></p>
+        </div>
+        <p class="status plate">In service · 5 locations</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">A POS that adapts to the business: the same system works as a restaurant with a kitchen, a clothing store with sizes and colors, or a self-service kiosk. 4 clients use it in 5 locations, and it has processed more than 21,000 orders.</p>
+        <ul class="facts" role="list">
+          <li><strong>18 modules</strong> turned on per business type, with no data lost when it changes.</li>
+          <li><strong>Real time</strong> between point of sale, kitchen and cash register with WebSockets.</li>
+          <li><strong>AFIP e-invoicing</strong> (Argentina's tax agency) in my own Java and Spring Boot microservice.</li>
+          <li><strong>AI support assistant</strong> that queries the real system to answer.</li>
+        </ul>
+        <a class="btn btn-primary" href="/en/keltron/">See the Keltron case</a>
+      </div>
+    </article>
+
+    <article id="cuotum" class="line" data-line="c">
+      <header class="line-head">
+        <span class="bullet big" data-line="c" aria-hidden="true">C</span>
+        <div>
+          <h3>Cuotum</h3>
+          <p class="muted">SaaS for recurring payments · 2026 – now · <a href="https://cuotum.app">cuotum.app</a></p>
+        </div>
+        <p class="status plate">In service · 54 members</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">Gyms, clubs and rentals load their monthly fees; each member gets a link by WhatsApp or email and pays from the phone, with nothing to install. It started with 2 organizations and 54 members.</p>
+        <ul class="facts" role="list">
+          <li><strong>Multi-tenant</strong> with data isolation through Row-Level Security in PostgreSQL.</li>
+          <li><strong>Split payments</strong> with Mercado Pago and Talo: each payment is divided instantly.</li>
+          <li><strong>One member, many businesses</strong>: identity by national ID, and no business sees the others.</li>
+          <li><strong>103 test classes</strong> covering authentication, payments and webhooks.</li>
+        </ul>
+        <a class="btn btn-primary" href="/en/cuotum/">See the Cuotum case</a>
+      </div>
+    </article>
+
+    <article id="barras" class="line" data-line="b">
+      <header class="line-head">
+        <span class="bullet big" data-line="b" aria-hidden="true">B</span>
+        <div>
+          <h3>barras-ar</h3>
+          <p class="muted">Open API and app · Public code · <a href="https://barras-ar-app.vercel.app/">Open the app</a></p>
+        </div>
+        <p class="status plate">Transfer to K</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">In the kiosks that use Keltron, loading products by scanning them one by one is slow. barras-ar solves that: search "galletitas" (cookies) and you get the product with its barcode and a reference price, rebuilt every day from public Precios Claros data.</p>
+        <ul class="facts" role="list">
+          <li><strong>Daily import</strong> automated with GitHub Actions.</li>
+          <li><strong>Public API</strong> with no key, by barcode or by text.</li>
+        </ul>
+        <a class="btn btn-primary" href="/en/barras/">See the barras-ar case</a>
+      </div>
+    </article>
+  </section>
+
+  <section id="experiencia" class="exp wrap" aria-labelledby="exp-t">
+    <h2 id="exp-t">The journey</h2>
+    <ol class="timeline" role="list">
+      {timeline.map((t) => (
+        <li>
+          <span class="t-dot" aria-hidden="true"></span>
+          <p class="t-when">{t.when}</p>
+          <h3>{t.what}</h3>
+          {t.body && <p class="t-body">{t.body}</p>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="contacto" class="exit" aria-labelledby="exit-t">
+    <div class="wrap exit-inner">
+      <h2 id="exit-t"><span class="arrow" aria-hidden="true">→</span> Exit: let's talk</h2>
+      <p>I'm looking for a team where I can bring what I learned building products on my own.</p>
+      <ul class="exit-links" role="list">
+        <li><a href="mailto:jemiliobus@gmail.com">jemiliobus@gmail.com</a></li>
+        <li><a href="https://linkedin.com/in/juan-bustos7">LinkedIn</a></li>
+        <li><a href="https://github.com/Juanbe7">GitHub</a></li>
+        <li><a href="/cv/CV-Juan-Bustos.pdf" download>CV as PDF</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+    padding-top: clamp(40px, 7vw, 88px);
+    padding-bottom: clamp(48px, 7vw, 96px);
+  }
+  h1 { font-size: clamp(2.8rem, 6vw, 4.6rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.15rem, 1.6vw, 1.35rem); margin-top: 16px; max-width: 32ch; }
+  .plates { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 8px; max-width: 460px; }
+  .plates .plate { display: flex; align-items: center; gap: 12px; font-size: .98rem; }
+  .plates .bullet { font-size: .78rem; }
+  .plates .stack { background: transparent; color: var(--ink-2); box-shadow: inset 0 0 0 2px var(--rule); font-size: .9rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .where { margin-top: 18px; font-size: .92rem; }
+  .map-note { font-size: .85rem; margin-top: 12px; }
+
+  .lines { padding-bottom: clamp(56px, 8vw, 104px); }
+  .lines > h2, .exp > h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 36px; }
+  .line { --c: var(--line-k); border-top: var(--route) solid var(--c); padding: 28px 0 44px; }
+  .line[data-line='c'] { --c: var(--line-c); }
+  .line[data-line='b'] { --c: var(--line-b); }
+  .line-head { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; }
+  .line-head h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+  .line-head p.muted { font-size: .92rem; margin-top: 4px; }
+  .bullet.big { font-size: 1.5rem; }
+  .status { font-size: .85rem; white-space: nowrap; }
+  .line-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 48px; margin-top: 24px; align-items: start; }
+  .line-body .lead { font-size: 1.12rem; max-width: 60ch; }
+  .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .facts li { padding-left: 22px; position: relative; }
+  .facts li::before { content: ''; position: absolute; left: 0; top: .45em; width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--c); background: #fff; }
+  .line-body .btn { grid-column: 1; justify-self: start; }
+
+  .exp { padding-bottom: clamp(56px, 8vw, 104px); }
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 36px; position: relative; display: grid; gap: 32px; max-width: 760px; }
+  .timeline::before { content: ''; position: absolute; left: 9px; top: 8px; bottom: 8px; width: var(--route); background: var(--line-t); border-radius: 3px; }
+  .timeline li { position: relative; }
+  .t-dot { position: absolute; left: -36px; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-t); }
+  .t-when { font-family: var(--mono); font-size: .85rem; color: var(--ink-2); }
+  .timeline h3 { font-size: 1.25rem; margin-top: 2px; }
+  .t-body { margin-top: 6px; max-width: 68ch; }
+
+  .exit { background: var(--sign); color: var(--sign-text); padding: clamp(48px, 7vw, 88px) 0; }
+  .exit h2 { font-size: clamp(1.9rem, 4vw, 3rem); display: flex; align-items: center; gap: 16px; }
+  .arrow { display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; border-radius: 8px; background: var(--line-b); color: var(--ink); }
+  .exit p { margin-top: 14px; max-width: 52ch; color: #c9cecb; font-size: 1.1rem; }
+  .exit-links { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; font-weight: 600; font-size: 1.1rem; }
+  .exit-links a:hover { color: var(--line-b); }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .line-body { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .line-head { grid-template-columns: auto 1fr; }
+    .status { grid-column: 1 / -1; justify-self: start; }
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+export interface Station { name: string; transfer?: string }
+export interface Line { id: 'k' | 'c' | 'b'; letter: string; name: string; sub: string; href: string; stations: Station[] }
+interface Props { lines: Line[]; label: string; transferLabel?: string }
+const { lines, label, transferLabel = 'Combinación' } = Astro.props;
+---
+<figure class="map" aria-label={label}>
+  {lines.map((line) => (
+    <div class={`row row-${line.id}`} data-line={line.id}>
+      <a class="row-head" href={line.href}>
+        <span class="bullet" data-line={line.id} aria-hidden="true">{line.letter}</span>
+        <span class="row-name">
+          <strong>{line.name}</strong>
+          <span>{line.sub}</span>
+        </span>
+      </a>
+      <ol class="route" style={`--n:${line.stations.length}`}>
+        {line.stations.map((s, i) => (
+          <li class={`stop ${i === 0 || i === line.stations.length - 1 ? 'terminal' : ''} ${s.transfer ? 'transfer' : ''}`}>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="stop-name">
+              {s.name}
+              {s.transfer && <span class="mini bullet" data-line={s.transfer} title={transferLabel}>{s.transfer.toUpperCase()}</span>}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  ))}
+</figure>
+
+<style>
+  .map {
+    margin: 0;
+    display: grid;
+    gap: 28px;
+    padding: 28px 24px 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--rule), 0 18px 40px -28px rgba(21,24,28,.45);
+  }
+  .row { --c: var(--line-k); display: grid; gap: 14px; transition: opacity .25s ease-out; }
+  .row-c { --c: var(--line-c); }
+  .row-b { --c: var(--line-b); }
+  .map:has(.row:hover) .row:not(:hover),
+  .map:has(.row:focus-within) .row:not(:focus-within) { opacity: .32; }
+
+  .row-head { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; width: fit-content; }
+  .row-head .bullet { font-size: 1.05rem; }
+  .row-name { display: grid; line-height: 1.2; }
+  .row-name strong { font-size: 1.15rem; }
+  .row-name span { font-size: .85rem; color: var(--ink-2); }
+  .row-head:hover strong { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .18em; }
+
+  .route {
+    list-style: none; margin: 0; padding: 0 0 0 4px;
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    position: relative;
+  }
+  .route::before {
+    content: '';
+    position: absolute; left: 4px; right: 0; top: 7px;
+    height: var(--route);
+    background: var(--c);
+    border-radius: 3px;
+  }
+  .route::after {
+    content: '';
+    position: absolute; top: 4px; left: 4px;
+    width: 26px; height: 12px; border-radius: 6px;
+    background: var(--ink);
+    opacity: 0;
+  }
+  .row:hover .route::after { animation: train 2.2s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes train {
+    0% { opacity: 1; left: 4px; }
+    85% { opacity: 1; }
+    100% { opacity: 0; left: calc(100% - 26px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .row:hover .route::after { animation: none; } }
+
+  .stop { position: relative; display: grid; gap: 8px; justify-items: start; }
+  .dot {
+    position: relative; z-index: 1;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; border: 5px solid var(--c);
+  }
+  .terminal .dot { background: var(--c); border-color: var(--ink); }
+  .transfer .dot { border-color: var(--ink); box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--ink); }
+  .stop-name { font-size: .8rem; font-weight: 600; line-height: 1.25; padding-right: 6px; }
+  .mini { font-size: .62rem; width: 1.9em; height: 1.9em; margin-left: 4px; vertical-align: middle; }
+
+  @media (max-width: 760px) {
+    .route { grid-template-columns: 1fr; gap: 10px; padding: 0 0 0 4px; }
+    .route::before { left: 11px; right: auto; top: 6px; bottom: 6px; width: var(--route); height: auto; }
+    .route::after { display: none; }
+    .stop { grid-template-columns: 20px 1fr; align-items: center; gap: 12px; }
+    .stop-name { font-size: .9rem; }
+  }
+</style>

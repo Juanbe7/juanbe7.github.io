@@ -1,0 +1,155 @@
+---
+import Base from '../layouts/Base.astro';
+
+const stations = [
+  { name: 'Ingesta diaria', tech: 'GitHub Actions · TypeScript', what: 'Cada día descarga el dataset SEPA de Precios Claros, abre el archivo de cada cadena, valida los códigos y arma una ficha por producto.' },
+  { name: 'Catálogo', tech: 'Supabase · PostgreSQL', what: 'Una sola tabla, una fila por código de barras, con precio típico, mínimo y máximo en supermercados y en mayoristas.' },
+  { name: 'API pública', tech: 'Vercel · OpenAPI', what: 'Búsqueda por código o por texto. Solo lectura, sin clave y abierta a cualquier origen.' },
+  { name: 'App', tech: 'Vite · TypeScript', what: 'Escaneás o buscás un producto y ves cuánto sale en súper o en mayorista, con su código de barras listo para usar.' },
+];
+---
+<Base
+  title="barras-ar · Caso · Juan Bustos"
+  description="barras-ar: API abierta y app de productos argentinos por código de barras, alimentada a diario con datos públicos de Precios Claros."
+  altHref="/en/barras/"
+>
+  <article class="case">
+    <header class="case-head">
+      <div class="wrap">
+        <a class="back" href="/#lineas">← Todas las líneas</a>
+        <div class="title-row">
+          <span class="bullet" data-line="b" aria-hidden="true">B</span>
+          <h1>barras-ar</h1>
+        </div>
+        <p class="lede">API abierta y app para saber el código de barras y el precio de referencia de productos argentinos. Nació como una necesidad de Keltron y hoy es código público.</p>
+        <ul class="plates" role="list">
+          <li class="plate"><a href="https://barras-ar-app.vercel.app/">Abrir la app</a></li>
+          <li class="plate"><a href="https://barras-ar.vercel.app">Ver la API</a></li>
+          <li class="plate"><a href="https://github.com/Juanbe7/barras-ar">Ver el código</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="wrap block" aria-labelledby="origen">
+      <h2 id="origen">De dónde salió</h2>
+      <div class="two">
+        <div class="prose">
+          <p>Los kioscos que usan Keltron tienen cientos de productos, y cargarlos escaneando uno por uno lleva horas. Pero un paquete de galletitas tiene el mismo código en todo el país.</p>
+          <p>El Estado publica todos los días los precios que informan las cadenas, en el programa Precios Claros. barras-ar toma esos datos públicos y los convierte en un buscador: escribís "alfajor milka" y te devuelve el producto con su código y cuánto sale.</p>
+          <p class="muted">La integración con Keltron, para autocompletar productos desde el punto de venta, es el próximo paso.</p>
+        </div>
+        <figure class="shot phone">
+          <img src="/img/barras/producto.webp" width="480" height="793" loading="lazy"
+               alt="Ficha de un alfajor en la app: precio típico de 2.309 pesos, mínimo 1.590, máximo 3.200 y su código de barras" />
+          <figcaption class="muted">Ficha de un producto, con datos reales del 11/11/2026.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="estaciones">
+      <h2 id="estaciones">Las estaciones de la línea</h2>
+      <ol class="stations" role="list">
+        {stations.map((s) => (
+          <li>
+            <span class="s-dot" aria-hidden="true"></span>
+            <div class="s-main">
+              <h3>{s.name}</h3>
+              <p class="s-tech">{s.tech}</p>
+            </div>
+            <p class="s-what">{s.what}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="wrap block" aria-labelledby="detalles">
+      <h2 id="detalles">Los detalles que importan</h2>
+      <div class="two">
+        <div class="decisions">
+          <section class="decision">
+            <h3>Precio típico, no el más barato</h3>
+            <p>Cada producto muestra la mediana entre las cadenas que lo informan, además del mínimo y el máximo. Un solo precio de oferta no representa lo que sale en realidad.</p>
+          </section>
+          <section class="decision">
+            <h3>Súper y mayorista por separado</h3>
+            <p>El precio de mayorista sirve como costo aproximado para un comercio que compra para revender, que es justo el caso de un kiosco.</p>
+          </section>
+          <section class="decision">
+            <h3>Códigos normalizados</h3>
+            <p>Todos los códigos se guardan con 13 dígitos, y si buscás el código de una caja, te devuelve el producto que contiene y cuántas unidades trae.</p>
+          </section>
+        </div>
+        <figure class="shot phone">
+          <img src="/img/barras/busqueda.webp" width="480" height="318" loading="lazy"
+               alt="Resultados de buscar alfajor milka en la app, con precio y cantidad de cadenas de cada producto" />
+          <figcaption class="muted">Búsqueda por texto.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="next" aria-label="Siguiente">
+      <div class="wrap next-inner">
+        <a class="next-line" href="/keltron/">
+          <span class="bullet" data-line="k" aria-hidden="true">K</span>
+          <span><span class="muted-on-dark">Combinación con</span><strong>Keltron</strong></span>
+        </a>
+        <a class="btn btn-light" href="/#contacto">Hablemos</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .case-head { border-bottom: var(--route) solid var(--line-b); padding: clamp(32px, 5vw, 64px) 0 clamp(36px, 5vw, 56px); background: #fff; }
+  .back { font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-2); }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+  .title-row .bullet { font-size: 1.9rem; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); margin-top: 16px; max-width: 58ch; }
+  .plates { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plates .plate { font-size: .92rem; }
+  .plates a { color: inherit; }
+
+  .block { padding-top: clamp(48px, 7vw, 88px); }
+  .block h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 20px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: start; }
+  .prose { display: grid; gap: 14px; font-size: 1.1rem; max-width: 60ch; }
+  .prose .muted { font-size: 1rem; }
+
+  .shot { margin: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 0 0 1px var(--rule), 0 14px 32px -22px rgba(21,24,28,.5); }
+  .shot figcaption { font-size: .82rem; margin-top: 8px; }
+  .phone { max-width: 320px; justify-self: end; }
+
+  .stations { list-style: none; margin: 0; padding: 0 0 0 40px; position: relative; display: grid; }
+  .stations::before { content: ''; position: absolute; left: 11px; top: 14px; bottom: 14px; width: var(--route); background: var(--line-b); border-radius: 3px; }
+  .stations li { position: relative; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 32px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  .s-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-b); }
+  .stations li:first-child .s-dot, .stations li:last-child .s-dot { background: var(--line-b); border-color: var(--ink); }
+  .stations h3 { font-size: 1.15rem; }
+  .s-tech { font-family: var(--mono); font-size: .82rem; color: var(--line-b-ink); margin-top: 2px; }
+  .s-what { max-width: 60ch; }
+
+  .decisions { display: grid; gap: 0; }
+  .decision { padding: 20px 0 22px; border-top: 2px solid var(--ink); }
+  .decision h3 { font-size: 1.2rem; }
+  .decision p { margin-top: 8px; max-width: 60ch; }
+
+  .next { background: var(--sign); color: var(--sign-text); margin-top: clamp(56px, 8vw, 104px); padding: 36px 0; }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .next-line { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+  .next-line .bullet { font-size: 1.3rem; }
+  .next-line > span:last-child { display: grid; line-height: 1.2; }
+  .next-line strong { font-size: 1.6rem; }
+  .next-line:hover strong { text-decoration: underline; }
+  .muted-on-dark { color: #b8bdb9; font-size: .88rem; }
+  .btn-light { background: var(--sign-text); color: var(--ink); border-color: var(--sign-text); }
+  .btn-light:hover { background: var(--line-b); border-color: var(--line-b); }
+
+  @media (max-width: 860px) {
+    .two { grid-template-columns: 1fr; }
+    .stations li { grid-template-columns: 1fr; }
+    .phone { justify-self: start; }
+  }
+</style>

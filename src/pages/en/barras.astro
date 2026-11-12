@@ -1,0 +1,156 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const stations = [
+  { name: 'Daily import', tech: 'GitHub Actions · TypeScript', what: 'Every day it downloads the SEPA dataset from Precios Claros, opens the file of each store chain, validates the barcodes and builds one record per product.' },
+  { name: 'Catalog', tech: 'Supabase · PostgreSQL', what: 'A single table, one row per barcode, with typical, minimum and maximum price at supermarkets and at wholesalers.' },
+  { name: 'Public API', tech: 'Vercel · OpenAPI', what: 'Search by barcode or by text. Read-only, no key, and open to any origin.' },
+  { name: 'App', tech: 'Vite · TypeScript', what: 'Scan or search a product and see its price at supermarkets or wholesalers, with its barcode ready to use.' },
+];
+---
+<Base
+  title="barras-ar · Case study · Juan Bustos"
+  description="barras-ar: open API and app for Argentine products by barcode, updated daily from public Precios Claros data."
+  lang="en"
+  altHref="/barras/"
+>
+  <article class="case">
+    <header class="case-head">
+      <div class="wrap">
+        <a class="back" href="/en/#lineas">← All lines</a>
+        <div class="title-row">
+          <span class="bullet" data-line="b" aria-hidden="true">B</span>
+          <h1>barras-ar</h1>
+        </div>
+        <p class="lede">An open API and app to find the barcode and reference price of Argentine products. It started as a need inside Keltron and today it is public code.</p>
+        <ul class="plates" role="list">
+          <li class="plate"><a href="https://barras-ar-app.vercel.app/">Open the app</a></li>
+          <li class="plate"><a href="https://barras-ar.vercel.app">See the API</a></li>
+          <li class="plate"><a href="https://github.com/Juanbe7/barras-ar">See the code</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="wrap block" aria-labelledby="origen">
+      <h2 id="origen">Where it came from</h2>
+      <div class="two">
+        <div class="prose">
+          <p>The kiosks that use Keltron have hundreds of products, and loading them by scanning one by one takes hours. But a pack of cookies has the same barcode across the whole country.</p>
+          <p>The Argentine government publishes the prices reported by store chains every day, through the Precios Claros program. barras-ar takes that public data and turns it into a search tool: type "alfajor milka" and you get the product with its barcode and its price.</p>
+          <p class="muted">The integration with Keltron, to autocomplete products from the point of sale, is the next step.</p>
+        </div>
+        <figure class="shot phone">
+          <img src="/img/barras/producto.webp" width="480" height="793" loading="lazy"
+               alt="Product page for an alfajor in the app: typical price 2,309 pesos, minimum 1,590, maximum 3,200 and its barcode" />
+          <figcaption class="muted">Product page, with real data from 11/11/2026.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="estaciones">
+      <h2 id="estaciones">The stations on this line</h2>
+      <ol class="stations" role="list">
+        {stations.map((s) => (
+          <li>
+            <span class="s-dot" aria-hidden="true"></span>
+            <div class="s-main">
+              <h3>{s.name}</h3>
+              <p class="s-tech">{s.tech}</p>
+            </div>
+            <p class="s-what">{s.what}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="wrap block" aria-labelledby="detalles">
+      <h2 id="detalles">The details that matter</h2>
+      <div class="two">
+        <div class="decisions">
+          <section class="decision">
+            <h3>Typical price, not the cheapest</h3>
+            <p>Each product shows the median across the chains that report it, plus the minimum and maximum. A single sale price does not show what it really costs.</p>
+          </section>
+          <section class="decision">
+            <h3>Supermarket and wholesale, separately</h3>
+            <p>The wholesale price works as an approximate cost for a store that buys to resell, which is exactly the case of a kiosk.</p>
+          </section>
+          <section class="decision">
+            <h3>Normalized barcodes</h3>
+            <p>All barcodes are stored with 13 digits, and if you search the code of a box, you get the product inside and how many units it holds.</p>
+          </section>
+        </div>
+        <figure class="shot phone">
+          <img src="/img/barras/busqueda.webp" width="480" height="318" loading="lazy"
+               alt="Search results for alfajor milka in the app, with the price and number of chains for each product" />
+          <figcaption class="muted">Search by text.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="next" aria-label="Siguiente">
+      <div class="wrap next-inner">
+        <a class="next-line" href="/en/keltron/">
+          <span class="bullet" data-line="k" aria-hidden="true">K</span>
+          <span><span class="muted-on-dark">Transfer to</span><strong>Keltron</strong></span>
+        </a>
+        <a class="btn btn-light" href="/en/#contacto">Let's talk</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .case-head { border-bottom: var(--route) solid var(--line-b); padding: clamp(32px, 5vw, 64px) 0 clamp(36px, 5vw, 56px); background: #fff; }
+  .back { font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-2); }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+  .title-row .bullet { font-size: 1.9rem; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); margin-top: 16px; max-width: 58ch; }
+  .plates { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plates .plate { font-size: .92rem; }
+  .plates a { color: inherit; }
+
+  .block { padding-top: clamp(48px, 7vw, 88px); }
+  .block h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 20px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: start; }
+  .prose { display: grid; gap: 14px; font-size: 1.1rem; max-width: 60ch; }
+  .prose .muted { font-size: 1rem; }
+
+  .shot { margin: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 0 0 1px var(--rule), 0 14px 32px -22px rgba(21,24,28,.5); }
+  .shot figcaption { font-size: .82rem; margin-top: 8px; }
+  .phone { max-width: 320px; justify-self: end; }
+
+  .stations { list-style: none; margin: 0; padding: 0 0 0 40px; position: relative; display: grid; }
+  .stations::before { content: ''; position: absolute; left: 11px; top: 14px; bottom: 14px; width: var(--route); background: var(--line-b); border-radius: 3px; }
+  .stations li { position: relative; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 32px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  .s-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-b); }
+  .stations li:first-child .s-dot, .stations li:last-child .s-dot { background: var(--line-b); border-color: var(--ink); }
+  .stations h3 { font-size: 1.15rem; }
+  .s-tech { font-family: var(--mono); font-size: .82rem; color: var(--line-b-ink); margin-top: 2px; }
+  .s-what { max-width: 60ch; }
+
+  .decisions { display: grid; gap: 0; }
+  .decision { padding: 20px 0 22px; border-top: 2px solid var(--ink); }
+  .decision h3 { font-size: 1.2rem; }
+  .decision p { margin-top: 8px; max-width: 60ch; }
+
+  .next { background: var(--sign); color: var(--sign-text); margin-top: clamp(56px, 8vw, 104px); padding: 36px 0; }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .next-line { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+  .next-line .bullet { font-size: 1.3rem; }
+  .next-line > span:last-child { display: grid; line-height: 1.2; }
+  .next-line strong { font-size: 1.6rem; }
+  .next-line:hover strong { text-decoration: underline; }
+  .muted-on-dark { color: #b8bdb9; font-size: .88rem; }
+  .btn-light { background: var(--sign-text); color: var(--ink); border-color: var(--sign-text); }
+  .btn-light:hover { background: var(--line-b); border-color: var(--line-b); }
+
+  @media (max-width: 860px) {
+    .two { grid-template-columns: 1fr; }
+    .stations li { grid-template-columns: 1fr; }
+    .phone { justify-self: start; }
+  }
+</style>

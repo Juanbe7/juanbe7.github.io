@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+
+const services = [
+  { name: 'API', tech: 'Java 21 · Spring Boot · Spring Security', what: 'Monolito modular con JWT, bloqueo por intentos fallidos y captcha. 431 clases, 103 de ellas de tests.' },
+  { name: 'Base de datos', tech: 'PostgreSQL · Row-Level Security · Flyway', what: 'Cada negocio ve solo sus datos, aislado en la propia base. 57 migraciones versionadas.' },
+  { name: 'Panel del negocio', tech: 'React 19 · Vite · TypeScript', what: 'Conceptos de cobro, socios, morosos, métricas por cuota y exportación de deudores.' },
+  { name: 'Link de pago', tech: 'React', what: 'El socio paga desde el celular sin crear cuenta. Con DNI y un código temporal puede ver todas sus cuotas.' },
+  { name: 'Pasarelas', tech: 'Mercado Pago · Talo', what: 'Cada negocio elige cómo cobrar. El pago se reparte al instante entre el negocio y la plataforma.' },
+  { name: 'Avisos', tech: 'Spring Scheduler · WhatsApp · Email', what: 'Recordatorios de vencimiento automáticos, cada uno con su link de pago.' },
+];
+
+const decisions = [
+  { title: 'El aislamiento no depende del frontend',
+    body: 'El negocio de cada pedido sale siempre del token, nunca de lo que manda el navegador. Y por si algo falla en la aplicación, la base de datos aplica Row-Level Security: una consulta mal armada no puede devolver datos de otro negocio.' },
+  { title: 'La plata se calcula en un solo lugar',
+    body: 'Montos en BigDecimal y NUMERIC, nunca en coma flotante. El frontend no hace ninguna cuenta: recibe los importes ya calculados y formateados, así no hay dos versiones de un mismo total.' },
+  { title: 'El dinero no pasa por la plataforma',
+    body: 'Con split de pagos, cada cobro se divide en el momento: la cuota va directo al negocio y solo la comisión llega a Cuotum. Simplifica la parte fiscal y el negocio cobra sin esperar.' },
+  { title: 'No arranca con configuración insegura',
+    body: 'En producción, el backend se niega a iniciar si la clave de firma de tokens o los orígenes permitidos siguen con los valores de desarrollo. Un error de configuración se ve al desplegar, no después.' },
+];
+---
+<Base
+  title="Cuotum · Caso · Juan Bustos"
+  description="Cuotum: SaaS multi-tenant de cobro de cuotas con Mercado Pago y Talo, en producción."
+  altHref="/en/cuotum/"
+>
+  <article class="case">
+    <header class="case-head">
+      <div class="wrap">
+        <a class="back" href="/#lineas">← Todas las líneas</a>
+        <div class="title-row">
+          <span class="bullet" data-line="c" aria-hidden="true">C</span>
+          <h1>Cuotum</h1>
+        </div>
+        <p class="lede">Plataforma para cobrar cuotas recurrentes: gimnasios, clubes, alquileres y membresías. La diseñé y construí solo, y está en producción desde 2026.</p>
+        <ul class="plates" role="list">
+          <li class="plate">54 socios cargados</li>
+          <li class="plate">Mercado Pago y Talo</li>
+          <li class="plate">103 clases de tests</li>
+          <li class="plate"><a href="https://cuotum.app">cuotum.app</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="wrap block" aria-labelledby="problema">
+      <h2 id="problema">El problema</h2>
+      <div class="two">
+        <div class="prose">
+          <p>Un club o un gimnasio chico cobra las cuotas a mano: manda mensajes, espera transferencias y revisa el banco para saber quién pagó. Cuotum lo automatiza.</p>
+          <p>El negocio carga a sus socios una sola vez. A cada uno le llega un aviso con su link, paga desde el celular y el panel muestra quién está al día y quién no.</p>
+        </div>
+        <figure class="shot photo">
+          <img src="/img/cuotum/panel.webp" width="395" height="625" loading="lazy"
+               alt="Panel de Cuotum con lo recaudado en el mes, socios al día, en mora, porcentaje cobrado y últimos movimientos" />
+          <figcaption class="muted">Panel del negocio, con datos de ejemplo.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="estaciones">
+      <h2 id="estaciones">Las estaciones de la línea</h2>
+      <p class="intro muted">Las partes de la plataforma y con qué está hecha cada una.</p>
+      <ol class="stations" role="list">
+        {services.map((s) => (
+          <li>
+            <span class="s-dot" aria-hidden="true"></span>
+            <div class="s-main">
+              <h3>{s.name}</h3>
+              <p class="s-tech">{s.tech}</p>
+            </div>
+            <p class="s-what">{s.what}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="wrap block" aria-labelledby="socio">
+      <h2 id="socio">Lo que ve el socio</h2>
+      <div class="two">
+        <div class="prose">
+          <p>El socio no descarga nada ni crea una cuenta. Abre el link desde WhatsApp o el email, ve cuánto debe y cuándo vence, y paga.</p>
+          <p>Si pagó tarde, el recargo por mora se calcula en el momento del pago y se le muestra desglosado: cuota, recargo y total.</p>
+        </div>
+        <figure class="shot phone">
+          <img src="/img/cuotum/link-de-pago.webp" width="266" height="443" loading="lazy"
+               alt="Link de pago de Cuotum en el celular: total a pagar, vencimiento y alias y CVU para transferir" />
+          <figcaption class="muted">Link de pago, con datos de ejemplo.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="decisiones">
+      <h2 id="decisiones">Decisiones que tomé</h2>
+      <div class="decisions">
+        {decisions.map((d) => (
+          <section class="decision">
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </section>
+        ))}
+      </div>
+    </section>
+
+    <section class="next" aria-label="Siguiente">
+      <div class="wrap next-inner">
+        <a class="next-line" href="/barras/">
+          <span class="bullet" data-line="b" aria-hidden="true">B</span>
+          <span><span class="muted-on-dark">Próxima línea</span><strong>barras-ar</strong></span>
+        </a>
+        <a class="btn btn-light" href="/#contacto">Hablemos</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .case-head { border-bottom: var(--route) solid var(--line-c); padding: clamp(32px, 5vw, 64px) 0 clamp(36px, 5vw, 56px); background: #fff; }
+  .back { font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-2); }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+  .title-row .bullet { font-size: 1.9rem; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); margin-top: 16px; max-width: 56ch; }
+  .plates { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plates .plate { font-size: .92rem; }
+  .plates a { color: inherit; }
+
+  .block { padding-top: clamp(48px, 7vw, 88px); }
+  .block h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 20px; }
+  .intro { margin: -8px 0 24px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: start; }
+  .prose { display: grid; gap: 14px; font-size: 1.1rem; max-width: 60ch; }
+
+  .shot { margin: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 0 0 1px var(--rule), 0 14px 32px -22px rgba(21,24,28,.5); }
+  .shot figcaption { font-size: .82rem; margin-top: 8px; }
+  .photo { max-width: 380px; justify-self: end; }
+  .phone { max-width: 280px; justify-self: end; }
+
+  .stations { list-style: none; margin: 0; padding: 0 0 0 40px; position: relative; display: grid; }
+  .stations::before { content: ''; position: absolute; left: 11px; top: 14px; bottom: 14px; width: var(--route); background: var(--line-c); border-radius: 3px; }
+  .stations li { position: relative; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 32px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  .s-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-c); }
+  .stations li:first-child .s-dot, .stations li:last-child .s-dot { background: var(--line-c); border-color: var(--ink); }
+  .stations h3 { font-size: 1.15rem; }
+  .s-tech { font-family: var(--mono); font-size: .82rem; color: var(--line-c-ink); margin-top: 2px; }
+  .s-what { max-width: 60ch; }
+
+  .decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+  .decision { padding: 22px 0 26px; border-top: 2px solid var(--ink); }
+  .decision h3 { font-size: 1.25rem; }
+  .decision p { margin-top: 10px; max-width: 60ch; }
+
+  .next { background: var(--sign); color: var(--sign-text); margin-top: clamp(56px, 8vw, 104px); padding: 36px 0; }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .next-line { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+  .next-line .bullet { font-size: 1.3rem; }
+  .next-line > span:last-child { display: grid; line-height: 1.2; }
+  .next-line strong { font-size: 1.6rem; }
+  .next-line:hover strong { text-decoration: underline; }
+  .muted-on-dark { color: #b8bdb9; font-size: .88rem; }
+  .btn-light { background: var(--sign-text); color: var(--ink); border-color: var(--sign-text); }
+  .btn-light:hover { background: var(--line-b); border-color: var(--line-b); }
+
+  @media (max-width: 860px) {
+    .two, .decisions { grid-template-columns: 1fr; }
+    .stations li { grid-template-columns: 1fr; }
+    .photo, .phone { justify-self: start; }
+  }
+</style>

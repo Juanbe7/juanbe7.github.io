@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string; lang?: 'es' | 'en'; altHref?: string }
+const { title, description, lang = 'es', altHref = '/en/' } = Astro.props;
+const base = lang === 'es' ? '/' : '/en/';
+const t = lang === 'es'
+  ? { home: 'Juan Bustos, inicio', nav: 'Principal', skip: 'Saltar al contenido', projects: 'Proyectos', exp: 'Experiencia', contact: 'Contacto', other: 'EN', otherLabel: 'English version' }
+  : { home: 'Juan Bustos, home', nav: 'Main', skip: 'Skip to content', projects: 'Projects', exp: 'Experience', contact: 'Contact', other: 'ES', otherLabel: 'Versión en español' };
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#15181c" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+</head>
+<body>
+  <a class="skip" href="#main">{t.skip}</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href={base} aria-label={t.home}>
+        <span class="brand-dot" aria-hidden="true"></span>
+        Juan Bustos
+      </a>
+      <nav aria-label={t.nav}>
+        <a href={`${base}#lineas`}>{t.projects}</a>
+        <a href={`${base}#experiencia`}>{t.exp}</a>
+        <a href={`${base}#contacto`}>{t.contact}</a>
+        <a class="lang" href={altHref} hreflang={lang === 'es' ? 'en' : 'es'} aria-label={t.otherLabel}>{t.other}</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <slot />
+  </main>
+</body>
+</html>
+
+<style>
+  .top { background: var(--sign); color: var(--sign-text); position: sticky; top: 0; z-index: 5; }
+  .top-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; letter-spacing: -0.01em; }
+  .brand-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--sign-text); box-shadow: 0 0 0 4px var(--sign), 0 0 0 7px var(--line-k); }
+  nav { display: flex; gap: clamp(12px, 2.4vw, 28px); font-weight: 600; font-size: .95rem; }
+  nav a { text-decoration: none; padding: 4px 0 2px; border-bottom: 2px solid transparent; transition: border-color .2s ease-out; }
+  nav a:hover { border-color: currentColor; }
+  .lang { border: 2px solid currentColor !important; border-radius: 999px; padding: 2px 10px 0 !important; }
+  @media (max-width: 560px) {
+    nav a:not(.lang) { display: none; }
+  }
+</style>

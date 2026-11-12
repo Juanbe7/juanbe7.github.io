@@ -1,0 +1,114 @@
+@import '@fontsource/overpass/400.css';
+@import '@fontsource/overpass/600.css';
+@import '@fontsource/overpass/800.css';
+@import '@fontsource/overpass-mono/400.css';
+
+:root {
+  --enamel: #f5f6f4;
+  --enamel-2: #eaece9;
+  --ink: #15181c;
+  --ink-2: #4a5058;
+  --rule: #d5d9d6;
+  --sign: #15181c;
+  --sign-text: #f5f6f4;
+
+  --line-k: #0077b6;
+  --line-k-ink: #00699a;
+  --line-c: #6b2d8e;
+  --line-c-ink: #6b2d8e;
+  --line-b: #f2c200;
+  --line-b-ink: #7a5f00;
+  --line-t: #5d6b63;
+
+  --route: 6px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+
+  --font: 'Overpass', system-ui, sans-serif;
+  --mono: 'Overpass Mono', ui-monospace, monospace;
+
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--enamel);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-feature-settings: 'tnum' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--line-b); color: var(--ink); }
+
+h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; margin: 0; text-wrap: balance; font-weight: 800; }
+p { margin: 0; text-wrap: pretty; }
+
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--line-b);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+.skip {
+  position: absolute; left: -9999px; top: 8px;
+  background: var(--sign); color: var(--sign-text); padding: 8px 14px; z-index: 10;
+}
+.skip:focus { left: 8px; }
+
+/* Line bullet: the round subte badge */
+.bullet {
+  --c: var(--line-k);
+  display: inline-grid; place-items: center;
+  width: 2.1em; height: 2.1em; flex: none;
+  border-radius: 50%;
+  background: var(--c);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1em;
+  line-height: 1;
+  padding-top: 0.12em;
+}
+.bullet[data-line='c'] { --c: var(--line-c); }
+.bullet[data-line='b'] { --c: var(--line-b); color: var(--ink); }
+.bullet[data-line='t'] { --c: var(--line-t); }
+
+/* Sign plate: black enamel strip with white lettering */
+.plate {
+  background: var(--sign);
+  color: var(--sign-text);
+  border-radius: 6px;
+  padding: 0.7em 1em 0.55em;
+  font-weight: 600;
+  box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 6px 16px -10px rgba(21,24,28,.55);
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: .55em;
+  font: 600 1rem/1 var(--font);
+  padding: .85em 1.25em .7em;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  transition: background-color .2s ease-out, color .2s ease-out;
+}
+.btn-primary { background: var(--ink); color: var(--enamel); }
+.btn-primary:hover { background: #2b3036; }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--enamel); }
+
+.muted { color: var(--ink-2); }
+
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--enamel-2); }
+::-webkit-scrollbar-thumb { background: #9aa19d; border-radius: 8px; border: 3px solid var(--enamel-2); }

@@ -1,0 +1,199 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const services = [
+  { name: 'Core', tech: 'Node.js · Express · Prisma · PostgreSQL', what: 'Catalog, orders, stock, purchases, cash, customer accounts and reports. 90 data models and 124 test files.' },
+  { name: 'Admin and point of sale', tech: 'Next.js · React · TypeScript', what: 'The cashier screen, the kitchen screen and the admin panel.' },
+  { name: 'Real time', tech: 'Socket.IO', what: 'An order taken at a table shows up instantly in the kitchen and at the register.' },
+  { name: 'E-invoicing', tech: 'Java 21 · Spring Boot', what: 'WSAA authentication with certificates and invoice issuing through WSFEv1 with AFIP / ARCA, Argentina\'s tax agency.' },
+  { name: 'PDF', tech: 'Node.js · Puppeteer', what: 'Invoices and reports generated from templates.' },
+  { name: 'Printing', tech: 'Node.js · ESC/POS', what: 'Receipts and kitchen tickets to thermal printers over USB or network, from the store itself.' },
+  { name: 'Support assistant', tech: 'Gemini · tool use', what: 'Answers questions about the admin panel by querying the real system, not a fixed text.' },
+  { name: 'Online app', tech: 'Next.js', what: 'Online ordering for restaurants: menu, combos, cart, checkout and order tracking.' },
+];
+
+const decisions = [
+  { title: 'One system, five business types',
+    body: 'Restaurant, retail, kiosk, services and hybrid all run the same code. The 18 modules always exist in the database and each business only turns its own on or off. If a client changes business type, no data is lost.' },
+  { title: 'Invoicing in a separate service',
+    body: 'AFIP requires certificates and access tickets that expire, and sometimes it does not respond. I isolated all of that in a Java microservice that caches the access ticket and reports when AFIP is down, so the point of sale never stops because of an external service.' },
+  { title: 'The server decides the price',
+    body: 'For combos, the client only says what was chosen. Quantities and prices are calculated on the server from the real catalog, with tests that simulate each combination, so nobody can pay less by changing an order.' },
+  { title: 'AI that looks at real data',
+    body: 'The support assistant does not improvise: it uses tools that query the backend and answers with what is really loaded for that business.' },
+];
+---
+<Base
+  title="Keltron · Case study · Juan Bustos"
+  description="Keltron: management and point-of-sale system in production in 5 locations, with more than 21,000 orders processed."
+  lang="en"
+  altHref="/keltron/"
+>
+  <article class="case">
+    <header class="case-head" data-line="k">
+      <div class="wrap">
+        <a class="back" href="/en/#lineas">← All lines</a>
+        <div class="title-row">
+          <span class="bullet" data-line="k" aria-hidden="true">K</span>
+          <h1>Keltron</h1>
+        </div>
+        <p class="lede">A management and point-of-sale system I designed, built and run on my own. 4 clients use it in 5 locations, since August 2025.</p>
+        <ul class="plates" role="list">
+          <li class="plate">More than 21,000 orders processed</li>
+          <li class="plate">5 locations, 4 clients</li>
+          <li class="plate">Restaurants, retail and kiosks</li>
+          <li class="plate">Version 2.8, with changelog</li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="wrap block" aria-labelledby="origen">
+      <h2 id="origen">Where it came from</h2>
+      <div class="two">
+        <p>The first client was a restaurant that needed to take orders, send them to the kitchen and close the register in one system. Today a retail store and a self-service kiosk use it too, and the challenge was making one product serve very different businesses without turning into three systems.</p>
+        <figure class="shot photo">
+          <img src="/img/keltron/cocina-en-uso.webp" width="480" height="641" loading="lazy"
+               alt="Kitchen of a client restaurant: the Keltron order screen on the wall and on a tablet, with the cooks working" />
+          <figcaption class="muted">Keltron in a client's kitchen: orders arrive on their own to the screen and the tablet.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="pantallas">
+      <h2 id="pantallas">The screens</h2>
+      <div class="gallery">
+        <figure class="shot wide">
+          <img src="/img/keltron/inicio-modulos.webp" width="800" height="451" loading="lazy"
+               alt="Keltron home screen set up as a restaurant, with access to POS, Kitchen, Control, Cash, Display and Admin" />
+          <figcaption class="muted">Home screen set up as a restaurant: 18 modules active.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/img/keltron/punto-de-venta.webp" width="480" height="269" loading="lazy"
+               alt="Point-of-sale screen with products by category and the current order" />
+          <figcaption class="muted">Point of sale.</figcaption>
+        </figure>
+        <figure class="shot tall">
+          <img src="/img/keltron/pantalla-clientes.webp" width="480" height="854" loading="lazy"
+               alt="Customer screen with orders ready for pickup and in preparation" />
+          <figcaption class="muted">Customer screen: ready for pickup and in preparation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="estaciones">
+      <h2 id="estaciones">The stations on this line</h2>
+      <p class="intro muted">The parts of the system and what each one is built with.</p>
+      <ol class="stations" role="list">
+        {services.map((s) => (
+          <li>
+            <span class="s-dot" aria-hidden="true"></span>
+            <div class="s-main">
+              <h3>{s.name}</h3>
+              <p class="s-tech">{s.tech}</p>
+            </div>
+            <p class="s-what">{s.what}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="also muted">Also: central license management and remote deployment of updates to each installation.</p>
+    </section>
+
+    <section class="wrap block" aria-labelledby="decisiones">
+      <h2 id="decisiones">Decisions I made</h2>
+      <div class="decisions">
+        {decisions.map((d) => (
+          <section class="decision">
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </section>
+        ))}
+      </div>
+    </section>
+
+
+    <section class="next" aria-label="Siguiente">
+      <div class="wrap next-inner">
+        <a class="next-line" href="/en/cuotum/">
+          <span class="bullet" data-line="c" aria-hidden="true">C</span>
+          <span><span class="muted-on-dark">Next line</span><strong>Cuotum</strong></span>
+        </a>
+        <a class="btn btn-light" href="/en/#contacto">Let's talk</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .case-head { border-bottom: var(--route) solid var(--line-k); padding: clamp(32px, 5vw, 64px) 0 clamp(36px, 5vw, 56px); background: #fff; }
+  .back { font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-2); }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+  .title-row .bullet { font-size: 1.9rem; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); margin-top: 16px; max-width: 56ch; }
+  .plates { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plates .plate { font-size: .92rem; }
+
+  .block { padding-top: clamp(48px, 7vw, 88px); }
+  .block h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 20px; }
+  .intro { margin: -8px 0 24px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: start; }
+  .two > p { font-size: 1.1rem; max-width: 60ch; }
+
+  .shot { margin: 0; }
+  .shot-slot {
+    aspect-ratio: 16 / 10; border-radius: 10px;
+    background: var(--enamel-2);
+    box-shadow: inset 0 0 0 2px var(--rule);
+    display: grid; place-items: center;
+    font-weight: 600; color: var(--ink-2);
+  }
+  .shot figcaption { font-size: .82rem; margin-top: 8px; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 0 1px var(--rule), 0 14px 32px -22px rgba(21,24,28,.5); background: #fff; }
+  .photo { max-width: 420px; justify-self: end; }
+  .gallery { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .gallery .wide { grid-column: 1; grid-row: 1; }
+  .gallery .tall { grid-column: 2; grid-row: 1 / span 2; }
+  .gallery .shot:not(.wide):not(.tall) { grid-column: 1; grid-row: 2; max-width: 520px; }
+  @media (max-width: 860px) {
+    .photo { justify-self: start; }
+    .gallery { grid-template-columns: 1fr; }
+    .gallery .shot { grid-column: auto !important; grid-row: auto !important; }
+    .gallery .tall { max-width: 360px; }
+  }
+
+  .stations { list-style: none; margin: 0; padding: 0 0 0 40px; position: relative; display: grid; gap: 0; }
+  .stations::before { content: ''; position: absolute; left: 11px; top: 14px; bottom: 14px; width: var(--route); background: var(--line-k); border-radius: 3px; }
+  .stations li {
+    position: relative;
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 32px;
+    padding: 16px 0; border-bottom: 1px solid var(--rule);
+  }
+  .s-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-k); }
+  .stations li:first-child .s-dot, .stations li:last-child .s-dot { background: var(--line-k); border-color: var(--ink); }
+  .stations h3 { font-size: 1.15rem; }
+  .s-tech { font-family: var(--mono); font-size: .82rem; color: var(--line-k-ink); margin-top: 2px; }
+  .s-what { max-width: 60ch; }
+  .also { margin-top: 18px; font-size: .95rem; }
+
+  .decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+  .decision { padding: 22px 0 26px; border-top: 2px solid var(--ink); }
+  .decision h3 { font-size: 1.25rem; }
+  .decision p { margin-top: 10px; max-width: 60ch; }
+
+  .next { background: var(--sign); color: var(--sign-text); margin-top: clamp(56px, 8vw, 104px); padding: 36px 0; }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .next-line { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+  .next-line .bullet { font-size: 1.3rem; }
+  .next-line > span:last-child { display: grid; line-height: 1.2; }
+  .next-line strong { font-size: 1.6rem; }
+  .next-line:hover strong { text-decoration: underline; }
+  .muted-on-dark { color: #b8bdb9; font-size: .88rem; }
+  .btn-light { background: var(--sign-text); color: var(--ink); border-color: var(--sign-text); }
+  .btn-light:hover { background: var(--line-b); border-color: var(--line-b); }
+
+  @media (max-width: 860px) {
+    .two, .decisions { grid-template-columns: 1fr; }
+    .stations li { grid-template-columns: 1fr; }
+  }
+</style>

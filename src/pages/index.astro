@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import NetworkMap from '../components/NetworkMap.astro';
+import type { Line } from '../components/NetworkMap.astro';
+
+const lines: Line[] = [
+  {
+    id: 'k', letter: 'K', name: 'Keltron', sub: 'Gestión y punto de venta', href: '/keltron/',
+    stations: [
+      { name: 'Punto de venta' }, { name: 'Cocina' }, { name: 'Caja' },
+      { name: 'Kiosco', transfer: 'b' }, { name: 'App online' }, { name: 'Factura AFIP' },
+      { name: 'PDF e impresión' }, { name: 'Asistente IA' },
+    ],
+  },
+  {
+    id: 'c', letter: 'C', name: 'Cuotum', sub: 'Cobro de cuotas recurrentes', href: '/cuotum/',
+    stations: [
+      { name: 'Organizaciones' }, { name: 'Socios' }, { name: 'Link de pago' },
+      { name: 'Mercado Pago' }, { name: 'Talo' }, { name: 'Recordatorios' },
+    ],
+  },
+  {
+    id: 'b', letter: 'B', name: 'barras-ar', sub: 'API abierta de códigos de barras', href: '/barras/',
+    stations: [{ name: 'Kiosco', transfer: 'k' }, { name: 'Ingesta diaria SEPA' }, { name: 'API pública' }],
+  },
+];
+
+const timeline = [
+  { when: '2021 – 2024', what: 'Freelance: automatización e ingeniería inversa',
+    body: 'Scrapers, monitoreo de precios con alertas en Discord y automatización de compras en e-commerce. Todo investigado a mano, antes de las herramientas de IA: leer el tráfico de red de un sitio, encontrar la API que usa por dentro y replicarla. Un flujo de compra completo quedó en unos 2 segundos.' },
+  { when: '2024', what: 'Técnico Superior en Programación, UTN Villa María', body: '' },
+  { when: 'Abr 2025 – hoy', what: 'Full Stack Developer en Brinco Software',
+    body: 'ERP sobre PHP y PostgreSQL en migración a React y TypeScript. Construí desde cero un CRM configurable para ventas, servicio técnico e industria, con tipos y campos personalizables. Resuelvo tickets de punta a punta en ventas, stock, compras, cuentas corrientes, caja y contabilidad.' },
+  { when: 'Ago 2025 – hoy', what: 'Keltron, producto propio', body: 'Primer cliente un restaurante; hoy 5 locales de gastronomía, retail y kiosco.' },
+  { when: '2026 – hoy', what: 'Cuotum, producto propio', body: 'SaaS de cobro de cuotas, en producción con sus primeras organizaciones.' },
+];
+---
+<Base
+  title="Juan Bustos · Desarrollador fullstack"
+  description="Desarrollador fullstack en Córdoba, Argentina. Construyo y opero Keltron, un POS en 5 locales, y Cuotum, un SaaS de cobranzas."
+  altHref="/en/"
+>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <h1>Juan Bustos</h1>
+      <p class="lede">Desarrollador fullstack. Diseño, construyo y opero software que usan comercios reales todos los días.</p>
+      <ul class="plates" role="list">
+        <li class="plate"><span class="bullet" data-line="k" aria-hidden="true">K</span>Más de 21.000 órdenes procesadas en 5 locales</li>
+        <li class="plate"><span class="bullet" data-line="c" aria-hidden="true">C</span>2 productos propios en producción con clientes</li>
+        <li class="plate stack">Node.js · React · TypeScript · Java · Spring Boot · PostgreSQL</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary" href="/cv/CV-Juan-Bustos.pdf" download>Descargar CV</a>
+        <a class="btn btn-ghost" href="mailto:jemiliobus@gmail.com">Escribime</a>
+      </div>
+      <p class="where muted">Córdoba, Argentina · GMT-3 · Remoto o presencial</p>
+    </div>
+    <div class="hero-map">
+      <NetworkMap lines={lines} label="Mapa de los productos que construí, como red de subte" />
+      <p class="map-note muted">Cada línea es un producto; cada estación, una parte que diseñé y construí. Pasá el mouse por una línea para seguirla.</p>
+    </div>
+  </section>
+
+  <section id="lineas" class="lines wrap" aria-labelledby="lineas-t">
+    <h2 id="lineas-t">Lo que construí y está en servicio</h2>
+
+    <article class="line" data-line="k">
+      <header class="line-head">
+        <span class="bullet big" data-line="k" aria-hidden="true">K</span>
+        <div>
+          <h3>Keltron</h3>
+          <p class="muted">Sistema de gestión y punto de venta · Agosto 2025 – hoy · <a href="https://keltron.app">keltron.app</a></p>
+        </div>
+        <p class="status plate">En servicio · 5 locales</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">Un POS que se adapta al negocio: el mismo sistema funciona como restaurante con cocina, tienda de ropa con talles y colores, o kiosco de autoservicio. Lo usan 4 clientes en 5 locales y ya procesó más de 21.000 órdenes.</p>
+        <ul class="facts" role="list">
+          <li><strong>18 módulos</strong> que se activan según el tipo de negocio, sin perder datos al cambiar.</li>
+          <li><strong>Tiempo real</strong> entre punto de venta, cocina y caja con WebSockets.</li>
+          <li><strong>Factura electrónica AFIP</strong> en un microservicio propio en Java y Spring Boot.</li>
+          <li><strong>Asistente de soporte con IA</strong> que consulta el sistema real para responder.</li>
+        </ul>
+        <a class="btn btn-primary" href="/keltron/">Ver el caso de Keltron</a>
+      </div>
+    </article>
+
+    <article id="cuotum" class="line" data-line="c">
+      <header class="line-head">
+        <span class="bullet big" data-line="c" aria-hidden="true">C</span>
+        <div>
+          <h3>Cuotum</h3>
+          <p class="muted">SaaS de cobro de cuotas recurrentes · 2026 – hoy · <a href="https://cuotum.app">cuotum.app</a></p>
+        </div>
+        <p class="status plate">En servicio · 54 socios</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">Gimnasios, clubes y alquileres cargan sus cuotas; cada socio recibe un link por WhatsApp o email y paga desde el celular, sin descargar nada. Arrancó con 2 organizaciones y 54 socios.</p>
+        <ul class="facts" role="list">
+          <li><strong>Multi-tenant</strong> con aislamiento de datos por Row-Level Security en PostgreSQL.</li>
+          <li><strong>Split de pagos</strong> con Mercado Pago y Talo: cada cobro se reparte al instante.</li>
+          <li><strong>Un socio, varios negocios</strong>: identidad por DNI sin que un negocio vea a los otros.</li>
+          <li><strong>103 clases de tests</strong> sobre autenticación, pagos y webhooks.</li>
+        </ul>
+        <a class="btn btn-primary" href="/cuotum/">Ver el caso de Cuotum</a>
+      </div>
+    </article>
+
+    <article id="barras" class="line" data-line="b">
+      <header class="line-head">
+        <span class="bullet big" data-line="b" aria-hidden="true">B</span>
+        <div>
+          <h3>barras-ar</h3>
+          <p class="muted">API y app abiertas · Código público · <a href="https://barras-ar-app.vercel.app/">Abrir la app</a></p>
+        </div>
+        <p class="status plate">Combinación con K</p>
+      </header>
+      <div class="line-body">
+        <p class="lead">En los kioscos que usan Keltron, cargar productos escaneando uno por uno es lento. barras-ar resuelve eso: buscás "galletitas" y te devuelve el producto con su código de barras y un precio de referencia, armado todos los días con los datos públicos de Precios Claros.</p>
+        <ul class="facts" role="list">
+          <li><strong>Ingesta diaria</strong> automatizada con GitHub Actions.</li>
+          <li><strong>API pública</strong> sin clave, por código o por texto.</li>
+        </ul>
+        <a class="btn btn-primary" href="/barras/">Ver el caso de barras-ar</a>
+      </div>
+    </article>
+  </section>
+
+  <section id="experiencia" class="exp wrap" aria-labelledby="exp-t">
+    <h2 id="exp-t">El recorrido</h2>
+    <ol class="timeline" role="list">
+      {timeline.map((t) => (
+        <li>
+          <span class="t-dot" aria-hidden="true"></span>
+          <p class="t-when">{t.when}</p>
+          <h3>{t.what}</h3>
+          {t.body && <p class="t-body">{t.body}</p>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="contacto" class="exit" aria-labelledby="exit-t">
+    <div class="wrap exit-inner">
+      <h2 id="exit-t"><span class="arrow" aria-hidden="true">→</span> Salida: hablemos</h2>
+      <p>Busco un equipo donde sumar lo que aprendí construyendo productos por mi cuenta.</p>
+      <ul class="exit-links" role="list">
+        <li><a href="mailto:jemiliobus@gmail.com">jemiliobus@gmail.com</a></li>
+        <li><a href="https://linkedin.com/in/juan-bustos7">LinkedIn</a></li>
+        <li><a href="https://github.com/Juanbe7">GitHub</a></li>
+        <li><a href="/cv/CV-Juan-Bustos.pdf" download>CV en PDF</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+    padding-top: clamp(40px, 7vw, 88px);
+    padding-bottom: clamp(48px, 7vw, 96px);
+  }
+  h1 { font-size: clamp(2.8rem, 6vw, 4.6rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.15rem, 1.6vw, 1.35rem); margin-top: 16px; max-width: 32ch; }
+  .plates { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 8px; max-width: 460px; }
+  .plates .plate { display: flex; align-items: center; gap: 12px; font-size: .98rem; }
+  .plates .bullet { font-size: .78rem; }
+  .plates .stack { background: transparent; color: var(--ink-2); box-shadow: inset 0 0 0 2px var(--rule); font-size: .9rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .where { margin-top: 18px; font-size: .92rem; }
+  .map-note { font-size: .85rem; margin-top: 12px; }
+
+  .lines { padding-bottom: clamp(56px, 8vw, 104px); }
+  .lines > h2, .exp > h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 36px; }
+  .line { --c: var(--line-k); border-top: var(--route) solid var(--c); padding: 28px 0 44px; }
+  .line[data-line='c'] { --c: var(--line-c); }
+  .line[data-line='b'] { --c: var(--line-b); }
+  .line-head { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; }
+  .line-head h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+  .line-head p.muted { font-size: .92rem; margin-top: 4px; }
+  .bullet.big { font-size: 1.5rem; }
+  .status { font-size: .85rem; white-space: nowrap; }
+  .line-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 48px; margin-top: 24px; align-items: start; }
+  .line-body .lead { font-size: 1.12rem; max-width: 60ch; }
+  .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .facts li { padding-left: 22px; position: relative; }
+  .facts li::before { content: ''; position: absolute; left: 0; top: .45em; width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--c); background: #fff; }
+  .line-body .btn { grid-column: 1; justify-self: start; }
+
+  .exp { padding-bottom: clamp(56px, 8vw, 104px); }
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 36px; position: relative; display: grid; gap: 32px; max-width: 760px; }
+  .timeline::before { content: ''; position: absolute; left: 9px; top: 8px; bottom: 8px; width: var(--route); background: var(--line-t); border-radius: 3px; }
+  .timeline li { position: relative; }
+  .t-dot { position: absolute; left: -36px; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-t); }
+  .t-when { font-family: var(--mono); font-size: .85rem; color: var(--ink-2); }
+  .timeline h3 { font-size: 1.25rem; margin-top: 2px; }
+  .t-body { margin-top: 6px; max-width: 68ch; }
+
+  .exit { background: var(--sign); color: var(--sign-text); padding: clamp(48px, 7vw, 88px) 0; }
+  .exit h2 { font-size: clamp(1.9rem, 4vw, 3rem); display: flex; align-items: center; gap: 16px; }
+  .arrow { display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; border-radius: 8px; background: var(--line-b); color: var(--ink); }
+  .exit p { margin-top: 14px; max-width: 52ch; color: #c9cecb; font-size: 1.1rem; }
+  .exit-links { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; font-weight: 600; font-size: 1.1rem; }
+  .exit-links a:hover { color: var(--line-b); }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .line-body { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .line-head { grid-template-columns: auto 1fr; }
+    .status { grid-column: 1 / -1; justify-self: start; }
+  }
+</style>

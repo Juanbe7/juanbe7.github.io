@@ -1,0 +1,198 @@
+---
+import Base from '../layouts/Base.astro';
+
+const services = [
+  { name: 'Núcleo', tech: 'Node.js · Express · Prisma · PostgreSQL', what: 'Catálogo, órdenes, stock, compras, caja, cuentas corrientes y reportes. 90 modelos de datos y 124 archivos de tests.' },
+  { name: 'Panel y punto de venta', tech: 'Next.js · React · TypeScript', what: 'La pantalla del cajero, la de cocina y el panel de administración.' },
+  { name: 'Tiempo real', tech: 'Socket.IO', what: 'Un pedido tomado en el salón aparece al instante en cocina y en caja.' },
+  { name: 'Factura electrónica', tech: 'Java 21 · Spring Boot', what: 'Autenticación WSAA con certificados y emisión de comprobantes por WSFEv1 ante AFIP / ARCA.' },
+  { name: 'PDF', tech: 'Node.js · Puppeteer', what: 'Comprobantes y reportes generados desde plantillas.' },
+  { name: 'Impresión', tech: 'Node.js · ESC/POS', what: 'Tickets y comandas a impresoras térmicas por USB o por red, desde el propio local.' },
+  { name: 'Asistente de soporte', tech: 'Gemini · tool use', what: 'Responde dudas del panel consultando el sistema real, no un texto fijo.' },
+  { name: 'App online', tech: 'Next.js', what: 'Pedidos online para gastronomía: carta, combos, carrito, checkout y seguimiento.' },
+];
+
+const decisions = [
+  { title: 'Un sistema, cinco tipos de negocio',
+    body: 'Restaurante, retail, kiosco, servicios e híbrido usan el mismo código. Los 18 módulos viven siempre en la base y cada negocio solo prende o apaga los suyos. Si un cliente cambia de rubro, no se pierde un solo dato.' },
+  { title: 'La facturación, en un servicio aparte',
+    body: 'AFIP exige certificados, tickets de acceso que vencen y a veces no responde. Aislé todo eso en un microservicio en Java que guarda el ticket de acceso y avisa cuando AFIP está caído, para que el punto de venta nunca se frene por un servicio externo.' },
+  { title: 'El precio lo decide el servidor',
+    body: 'En los combos, el cliente solo dice qué eligió. Cantidades y precios se calculan del lado del servidor a partir del catálogo real, con tests que simulan cada combinación, así nadie puede pagar de menos alterando un pedido.' },
+  { title: 'IA que mira datos reales',
+    body: 'El asistente de soporte no improvisa: usa herramientas que consultan el backend y responde con lo que de verdad está cargado en ese negocio.' },
+];
+---
+<Base
+  title="Keltron · Caso · Juan Bustos"
+  description="Keltron: sistema de gestión y punto de venta en producción en 5 locales, con más de 21.000 órdenes procesadas."
+  altHref="/en/keltron/"
+>
+  <article class="case">
+    <header class="case-head" data-line="k">
+      <div class="wrap">
+        <a class="back" href="/#lineas">← Todas las líneas</a>
+        <div class="title-row">
+          <span class="bullet" data-line="k" aria-hidden="true">K</span>
+          <h1>Keltron</h1>
+        </div>
+        <p class="lede">Sistema de gestión y punto de venta que diseñé, construí y opero solo. Lo usan 4 clientes en 5 locales, desde agosto de 2025.</p>
+        <ul class="plates" role="list">
+          <li class="plate">Más de 21.000 órdenes procesadas</li>
+          <li class="plate">5 locales de 4 clientes</li>
+          <li class="plate">Gastronomía, retail y kiosco</li>
+          <li class="plate">Versión 2.8, con changelog</li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="wrap block" aria-labelledby="origen">
+      <h2 id="origen">De dónde salió</h2>
+      <div class="two">
+        <p>El primer cliente fue un restaurante que necesitaba tomar pedidos, mandarlos a cocina y cerrar la caja en un mismo sistema. Hoy lo usan también una tienda retail y un kiosco de autoservicio, y el desafío fue que el mismo producto sirviera a negocios muy distintos sin convertirse en tres sistemas.</p>
+        <figure class="shot photo">
+          <img src="/img/keltron/cocina-en-uso.webp" width="480" height="641" loading="lazy"
+               alt="Cocina de un restaurante cliente: la pantalla de comandas de Keltron en la pared y en una tablet, con los cocineros trabajando" />
+          <figcaption class="muted">Keltron en la cocina de un cliente: las comandas llegan solas a la pantalla y a la tablet.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="pantallas">
+      <h2 id="pantallas">Las pantallas</h2>
+      <div class="gallery">
+        <figure class="shot wide">
+          <img src="/img/keltron/inicio-modulos.webp" width="800" height="451" loading="lazy"
+               alt="Pantalla de inicio de Keltron configurada como restaurante, con accesos a POS, Cocina, Control, Caja, Display y Administración" />
+          <figcaption class="muted">Inicio configurado como restaurante: 18 módulos activos.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/img/keltron/punto-de-venta.webp" width="480" height="269" loading="lazy"
+               alt="Pantalla de punto de venta con productos por categoría y el pedido actual" />
+          <figcaption class="muted">Punto de venta.</figcaption>
+        </figure>
+        <figure class="shot tall">
+          <img src="/img/keltron/pantalla-clientes.webp" width="480" height="854" loading="lazy"
+               alt="Pantalla para clientes con pedidos listos para retirar y en preparación" />
+          <figcaption class="muted">Pantalla para clientes: listos para retirar y en preparación.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="estaciones">
+      <h2 id="estaciones">Las estaciones de la línea</h2>
+      <p class="intro muted">Las partes del ecosistema y con qué está hecha cada una.</p>
+      <ol class="stations" role="list">
+        {services.map((s) => (
+          <li>
+            <span class="s-dot" aria-hidden="true"></span>
+            <div class="s-main">
+              <h3>{s.name}</h3>
+              <p class="s-tech">{s.tech}</p>
+            </div>
+            <p class="s-what">{s.what}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="also muted">Además, gestión centralizada de licencias y despliegue remoto de actualizaciones en cada instalación.</p>
+    </section>
+
+    <section class="wrap block" aria-labelledby="decisiones">
+      <h2 id="decisiones">Decisiones que tomé</h2>
+      <div class="decisions">
+        {decisions.map((d) => (
+          <section class="decision">
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </section>
+        ))}
+      </div>
+    </section>
+
+
+    <section class="next" aria-label="Siguiente">
+      <div class="wrap next-inner">
+        <a class="next-line" href="/cuotum/">
+          <span class="bullet" data-line="c" aria-hidden="true">C</span>
+          <span><span class="muted-on-dark">Próxima línea</span><strong>Cuotum</strong></span>
+        </a>
+        <a class="btn btn-light" href="/#contacto">Hablemos</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .case-head { border-bottom: var(--route) solid var(--line-k); padding: clamp(32px, 5vw, 64px) 0 clamp(36px, 5vw, 56px); background: #fff; }
+  .back { font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-2); }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+  .title-row .bullet { font-size: 1.9rem; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); margin-top: 16px; max-width: 56ch; }
+  .plates { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plates .plate { font-size: .92rem; }
+
+  .block { padding-top: clamp(48px, 7vw, 88px); }
+  .block h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 20px; }
+  .intro { margin: -8px 0 24px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: start; }
+  .two > p { font-size: 1.1rem; max-width: 60ch; }
+
+  .shot { margin: 0; }
+  .shot-slot {
+    aspect-ratio: 16 / 10; border-radius: 10px;
+    background: var(--enamel-2);
+    box-shadow: inset 0 0 0 2px var(--rule);
+    display: grid; place-items: center;
+    font-weight: 600; color: var(--ink-2);
+  }
+  .shot figcaption { font-size: .82rem; margin-top: 8px; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 0 1px var(--rule), 0 14px 32px -22px rgba(21,24,28,.5); background: #fff; }
+  .photo { max-width: 420px; justify-self: end; }
+  .gallery { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .gallery .wide { grid-column: 1; grid-row: 1; }
+  .gallery .tall { grid-column: 2; grid-row: 1 / span 2; }
+  .gallery .shot:not(.wide):not(.tall) { grid-column: 1; grid-row: 2; max-width: 520px; }
+  @media (max-width: 860px) {
+    .photo { justify-self: start; }
+    .gallery { grid-template-columns: 1fr; }
+    .gallery .shot { grid-column: auto !important; grid-row: auto !important; }
+    .gallery .tall { max-width: 360px; }
+  }
+
+  .stations { list-style: none; margin: 0; padding: 0 0 0 40px; position: relative; display: grid; gap: 0; }
+  .stations::before { content: ''; position: absolute; left: 11px; top: 14px; bottom: 14px; width: var(--route); background: var(--line-k); border-radius: 3px; }
+  .stations li {
+    position: relative;
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 32px;
+    padding: 16px 0; border-bottom: 1px solid var(--rule);
+  }
+  .s-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 5px solid var(--line-k); }
+  .stations li:first-child .s-dot, .stations li:last-child .s-dot { background: var(--line-k); border-color: var(--ink); }
+  .stations h3 { font-size: 1.15rem; }
+  .s-tech { font-family: var(--mono); font-size: .82rem; color: var(--line-k-ink); margin-top: 2px; }
+  .s-what { max-width: 60ch; }
+  .also { margin-top: 18px; font-size: .95rem; }
+
+  .decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+  .decision { padding: 22px 0 26px; border-top: 2px solid var(--ink); }
+  .decision h3 { font-size: 1.25rem; }
+  .decision p { margin-top: 10px; max-width: 60ch; }
+
+  .next { background: var(--sign); color: var(--sign-text); margin-top: clamp(56px, 8vw, 104px); padding: 36px 0; }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .next-line { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+  .next-line .bullet { font-size: 1.3rem; }
+  .next-line > span:last-child { display: grid; line-height: 1.2; }
+  .next-line strong { font-size: 1.6rem; }
+  .next-line:hover strong { text-decoration: underline; }
+  .muted-on-dark { color: #b8bdb9; font-size: .88rem; }
+  .btn-light { background: var(--sign-text); color: var(--ink); border-color: var(--sign-text); }
+  .btn-light:hover { background: var(--line-b); border-color: var(--line-b); }
+
+  @media (max-width: 860px) {
+    .two, .decisions { grid-template-columns: 1fr; }
+    .stations li { grid-template-columns: 1fr; }
+  }
+</style>
