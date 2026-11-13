@@ -61,13 +61,13 @@
   <ul>
     <li>Más de 21.000 órdenes procesadas en gastronomía, retail y modo kiosco.</li>
     <li>Configurable por tipo de negocio (restaurante, retail, kiosco, servicios) con 18 módulos que se activan o desactivan sin perder datos.</li>
-    <li>Arquitectura de servicios: núcleo en Node.js, Express y Prisma sobre PostgreSQL, frontend en Next.js y React, y servicios independientes para facturación, PDF (Puppeteer) e impresión de tickets ESC/POS.</li>
+    <li>Arquitectura de servicios: núcleo en Node.js, Express y Prisma sobre PostgreSQL, documentado con Swagger y con tests en Jest y Supertest; panel y POS en Next.js, React, Tailwind CSS y shadcn/ui, con formularios en React Hook Form y Zod; servicios independientes para facturación, PDF (Puppeteer) e impresión ESC/POS.</li>
     <li>Microservicio en Java y Spring Boot para facturación electrónica AFIP / ARCA (WSAA, WSFEv1, certificados), en producción.</li>
     <li>Sincronización en tiempo real entre POS, cocina y caja con WebSockets. App online de pedidos para gastronomía (Next.js).</li>
     <li>Asistente de soporte con IA (Gemini con tool use) que consulta el backend real. Gestión central de licencias y despliegue remoto de actualizaciones.</li>
     <li>Infraestructura propia en Linux con Docker y Caddy: despliegues, dominios, bases de datos y backups automatizados.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> TypeScript, Node.js, Express, Prisma, PostgreSQL, Next.js, React, WebSockets, Java 21, Spring Boot, Docker, Caddy</div>
+  <div class="stack"><b>Stack:</b> TypeScript, Node.js, Express, Prisma, PostgreSQL, Next.js, React, Tailwind CSS, shadcn/ui, Socket.IO, Jest, Java 21, Spring Boot, Docker, Caddy</div>
 </div>
 <div class="job">
   <div class="job-head"><span class="job-title"><span class="dot" style="background:#6b2d8e"></span>Fundador y desarrollador · Cuotum, plataforma SaaS de cobranzas</span><span class="job-when">2026 – Actualidad</span></div>
@@ -79,7 +79,7 @@
     <li>Recordatorios automáticos de vencimiento por WhatsApp y email con Spring Scheduler.</li>
     <li>103 clases de tests unitarios y de integración (JUnit, Mockito, Spring Boot Test).</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Java 21, Spring Boot, Spring Security, JPA, Flyway, PostgreSQL, React, TypeScript, Docker</div>
+  <div class="stack"><b>Stack:</b> Java 21, Spring Boot, Spring Security, JPA, Flyway, PostgreSQL, React, TypeScript, Vite, Tailwind CSS, TanStack Query, Docker</div>
 </div>
 <div class="job">
   <div class="job-head"><span class="job-title"><span class="dot" style="background:#f2c200"></span>Creador · barras-ar, API abierta de productos por código de barras</span><span class="job-when">2026 · Código público</span></div>
@@ -104,11 +104,11 @@
 
 <h2>Habilidades técnicas</h2>
 <dl class="skills">
-  <dt>Backend</dt><dd>Node.js, Express, TypeScript, Java, Spring Boot, Spring Security, PHP</dd>
-  <dt>Frontend</dt><dd>React, Next.js, TypeScript, HTML, CSS</dd>
+  <dt>Backend</dt><dd>Node.js, Express, TypeScript, Java, Spring Boot, Spring Security, PHP, Swagger / OpenAPI</dd>
+  <dt>Frontend</dt><dd>React, Next.js, Vite, Tailwind CSS, shadcn/ui, React Hook Form, Zod, TanStack Query, SWR</dd>
   <dt>Bases de datos</dt><dd>PostgreSQL (RLS, consultas complejas), MySQL, Prisma, JPA / Hibernate, Flyway</dd>
-  <dt>Integraciones</dt><dd>APIs REST, WebSockets, Mercado Pago, Talo, AFIP / ARCA</dd>
-  <dt>Testing</dt><dd>JUnit, Mockito, Spring Boot Test, Jest</dd>
+  <dt>Integraciones</dt><dd>APIs REST, WebSockets (Socket.IO), Mercado Pago, Talo, AFIP / ARCA, Gemini</dd>
+  <dt>Testing</dt><dd>Jest, Supertest, Testing Library, JUnit, Mockito, Spring Boot Test</dd>
   <dt>Infraestructura</dt><dd>Linux, Docker, Caddy, GitHub Actions, Git</dd>
 </dl>
 
